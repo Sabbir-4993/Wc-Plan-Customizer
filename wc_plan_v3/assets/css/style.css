@@ -1,0 +1,101 @@
+.wc-plan-customizer {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.plan-customizer-header {
+    background-color: #7c3aed;
+    color: white;
+    margin: -20px -20px 20px;
+    padding: 15px 20px;
+    border-radius: 8px 8px 0 0;
+}
+
+.plan-customizer-header h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.customizer-field {
+    margin-bottom: 20px;
+}
+
+.customizer-field label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #374151;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.input-group input[type="number"] {
+    width: 100px;
+    padding: 6px 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+}
+
+.unit {
+    color: #7c3aed;
+    font-weight: 500;
+}
+
+input[type="range"] {
+    width: 100%;
+    margin: 10px 0;
+}
+
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.price-display {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px 0;
+    color: #1f2937;
+}
+
+/* Admin table styles */
+.wp-list-table .column-order_id {
+    width: 10%;
+}
+
+.wp-list-table .column-customer {
+    width: 20%;
+}
+
+.wp-list-table .column-validity,
+.wp-list-table .column-internet_data,
+.wp-list-table .column-currency {
+    width: 15%;
+}
+
+.wp-list-table .column-price {
+    width: 10%;
+}
+
+.wp-list-table .column-date {
+    width: 15%;
+}

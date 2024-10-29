@@ -3,9 +3,9 @@
  * Plugin Name: WC Plan Customizer
  * Description: A WooCommerce plugin for customizing subscription plans
  * Version: 1.0.0
- * Author: Your Name
- * Author URI: https://yourwebsite.com
- * Text Domain: wc-plan-customizer
+ * Author: sabbir Ahmed
+ * Author URI: https://mrsabbir.com
+ * Text Domain: Wc-Plan-Customizer
  */
 
 if (!defined('ABSPATH')) {
@@ -26,9 +26,9 @@ class WC_Plan_Customizer_Plugin {
         add_action('admin_menu', array($this, 'add_admin_menu'));
         add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
         add_action('wp_enqueue_scripts', array($this, 'enqueue_frontend_scripts'));
+        add_action('admin_init', array($this, 'register_settings'));
     }
 
-    // Add the missing method
     public function add_admin_menu() {
         add_menu_page(
             __('Plan Customizer', 'wc-plan-customizer'),
@@ -42,16 +42,32 @@ class WC_Plan_Customizer_Plugin {
     }
 
     public function admin_page_content() {
-        // Admin page content
         ?>
         <div class="wrap">
             <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
             <div class="plan-customizer-admin-content">
-                <!-- Add your admin page content here -->
-                <p><?php _e('Welcome to WC Plan Customizer settings.', 'wc-plan-customizer'); ?></p>
+                <form method="post" action="options.php">
+                    <?php
+                    settings_fields('wc_plan_customizer_options');
+                    do_settings_sections('wc_plan_customizer_options');
+                    ?>
+                    <table class="form-table">
+                        <tr>
+                            <th scope="row"><?php _e('Enable Plan Customizer', 'wc-plan-customizer'); ?></th>
+                            <td>
+                                <input type="checkbox" name="wc_plan_customizer_enabled" value="1" <?php checked(get_option('wc_plan_customizer_enabled'), 1); ?>>
+                            </td>
+                        </tr>
+                    </table>
+                    <?php submit_button(); ?>
+                </form>
             </div>
         </div>
         <?php
+    }
+
+    public function register_settings() {
+        register_setting('wc_plan_customizer_options', 'wc_plan_customizer_enabled');
     }
 
     public function enqueue_admin_scripts($hook) {
@@ -98,10 +114,12 @@ class WC_Plan_Customizer_Plugin {
 
     public function activate() {
         // Activation code here
+        flush_rewrite_rules();
     }
 
     public function deactivate() {
         // Deactivation code here
+        flush_rewrite_rules();
     }
 }
 
@@ -119,7 +137,8 @@ function wc_plan_customizer_init() {
         return;
     }
 
-    $plugin = WC_Plan_Customizer_Plugin::get_instance();
+    // Initialize the plugin
+    WC_Plan_Customizer_Plugin::get_instance();
 }
 
 add_action('plugins_loaded', 'wc_plan_customizer_init');

@@ -1,0 +1,45 @@
+/* Admin styles for WC Plan Customizer */
+.plan-customizer-admin-content {
+    margin: 20px 0;
+    padding: 25px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.form-table th {
+    min-width: 200px;
+}
+
+.plan-customizer-settings {
+    max-width: 800px;
+}
+
+.plan-customizer-header {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.plan-customizer-section {
+    margin-bottom: 30px;
+}
+
+.plan-customizer-section h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+/* Form styling */
+.plan-customizer-form input[type="text"],
+.plan-customizer-form select {
+    width: 100%;
+    max-width: 400px;
+}
+
+.plan-customizer-form .description {
+    color: #666;
+    font-style: italic;
+    margin-top: 5px;
+}
