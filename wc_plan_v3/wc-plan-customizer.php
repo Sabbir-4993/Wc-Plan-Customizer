@@ -123,15 +123,48 @@ class WC_Plan_Customizer_Plugin {
     }
 
     public function shortcode_output($atts) {
-        $options = get_option('wc_plan_customizer_options', array());
-        $base_price = isset($options['base_price']) ? $options['base_price'] : 10;
+        // First try to get the product ID from options
+        $product_id = get_option('wc_plan_customizer_product_id');
 
-        $atts = shortcode_atts(array(
-            'base_price' => $base_price,
-        ), $atts, 'plan_customizer');
+        // If no product ID in options, try to find by name
+        if (!$product_id) {
+            $products = wc_get_products(array(
+                'name' => 'Customizable Data Plan',
+                'limit' => 1,
+                'status' => 'publish',
+                'type' => 'simple'
+            ));
+
+            if (!empty($products)) {
+                $product_id = $products[0]->get_id();
+                update_option('wc_plan_customizer_product_id', $product_id);
+            }
+        }
+
+        if (!$product_id) {
+            // Create the product if it doesn't exist
+            $product = new WC_Product_Simple();
+            $product->set_name('Customizable Data Plan');
+            $product->set_status('publish');
+            $product->set_catalog_visibility('visible');
+            $product->set_price(10);
+            $product->set_regular_price(10);
+            $product->set_virtual(true);
+            $product->set_sold_individually(true);
+            $product->set_description('Customizable mobile data plan with flexible validity and data options.');
+            $product->save();
+
+            $product_id = $product->get_id();
+            update_option('wc_plan_customizer_product_id', $product_id);
+        }
+
+        $product = wc_get_product($product_id);
+        if (!$product) {
+            return '<p>' . __('Plan product not found.', 'wc-plan-customizer') . '</p>';
+        }
 
         ob_start();
-        include plugin_dir_path(__FILE__) . 'templates/customizer.php';
+        include WC_PLAN_CUSTOMIZER_PLUGIN_DIR . 'templates/customizer.php';
         return ob_get_clean();
     }
 
